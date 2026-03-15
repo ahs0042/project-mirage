@@ -8,8 +8,12 @@ on:
     branches:
       - master
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
-  build-services:
+  build-and-push:
     runs-on: ubuntu-latest
 
     strategy:
@@ -28,6 +32,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build Docker image
-        run: |
-          docker build -t mirage-${{ matrix.service.name }} ${{ matrix.service.path }}
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.service.path }}
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/mirage-${{ matrix.service.name }}:latest
