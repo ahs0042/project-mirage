@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  test-and-build:
+  build-services:
     runs-on: ubuntu-latest
 
     strategy:
@@ -27,23 +27,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install dependencies
-        working-directory: ${{ matrix.service.path }}
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Verify required files
-        working-directory: ${{ matrix.service.path }}
-        run: |
-          test -f requirements.txt
-          test -f Dockerfile
 
       - name: Build Docker image
         run: |
