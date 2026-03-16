@@ -44,7 +44,9 @@ jobs:
         with:
           context: ${{ matrix.service.path }}
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/mirage-${{ matrix.service.name }}:latest
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/mirage-${{ matrix.service.name }}:latest
+            ghcr.io/${{ github.repository_owner }}/mirage-${{ matrix.service.name }}:${{ github.sha }}
 
   deploy-to-ec2:
     runs-on: ubuntu-latest
