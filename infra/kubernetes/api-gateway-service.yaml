@@ -4,9 +4,11 @@ metadata:
   name: api-gateway
   namespace: mirage
 spec:
+  type: NodePort   # 👈 THIS IS NEW
   selector:
     app: api-gateway
   ports:
     - protocol: TCP
       port: 8000
       targetPort: 8000
+      nodePort: 30080   # 👈 external port
