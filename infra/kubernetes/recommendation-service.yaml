@@ -10,3 +10,16 @@ spec:
     - protocol: TCP
       port: 8003
       targetPort: 8003
+        readinessProbe:
+            httpGet:
+              path: /health
+              port: 8003
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+        livenessProbe:
+            httpGet:
+              path: /health
+              port: 8003
+            initialDelaySeconds: 10
+            periodSeconds: 15

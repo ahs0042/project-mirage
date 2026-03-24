@@ -25,3 +25,15 @@ spec:
               value: "http://catalog-service:8002"
             - name: RECOMMENDATION_SERVICE_URL
               value: "http://recommendation-service:8003"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 15

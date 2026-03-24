@@ -10,3 +10,16 @@ spec:
     - protocol: TCP
       port: 8001
       targetPort: 8001
+        readinessProbe:
+            httpGet:
+              path: /health
+              port: 8001
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+        livenessProbe:
+            httpGet:
+              path: /health
+              port: 8001
+            initialDelaySeconds: 10
+            periodSeconds: 15
