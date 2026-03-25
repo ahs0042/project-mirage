@@ -18,6 +18,13 @@ spec:
           image: ghcr.io/ahs0042/mirage-catalog-service:latest
           ports:
             - containerPort: 8002
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "300m"
+              memory: "256Mi"
           readinessProbe:
             httpGet:
               path: /health
