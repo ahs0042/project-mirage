@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: ghcr.io/ahs0042/mirage-api-gateway:v2
+          image: ghcr.io/ahs0042/mirage-api-gateway:latest
           ports:
             - containerPort: 8000
           env:
@@ -25,6 +25,13 @@ spec:
               value: "http://catalog-service:8002"
             - name: RECOMMENDATION_SERVICE_URL
               value: "http://recommendation-service:8003"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "300m"
+              memory: "256Mi"
           readinessProbe:
             httpGet:
               path: /health
